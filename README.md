@@ -39,7 +39,7 @@ Setup is done through a number of environment variables:
 
 Example setup to backup [Rancher](https://rancher.com/) database periodically.
 
-    docker run -it --rm -d --name backup-rancher \
+    docker run -it --rm -d --restart=unless-stopped --name backup-rancher \
         # mysql data files
         -v /var/lib/mysql:/var/lib/mysql:ro \
         # path to mysql physical files (read only for security)

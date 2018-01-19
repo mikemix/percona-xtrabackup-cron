@@ -24,7 +24,8 @@ function success {
 #
 
 backup_path="/mnt/backup/$1/$(date +'%Y/%m/%d')/$(date +'%s')"
-symlink_path="/mnt/backup/$1/latest-full"
+ln_full_path="/mnt/backup/$1/latest-full"
+ln_latest_path="/mnt/backup/$1/latest"
 
 echo "Backup start in: $backup_path"
 
@@ -34,8 +35,10 @@ ln -sf "$backup_path" /backup
 `xtrabackup $2`
 
 if [[ "$2" != *"incremental-basedir"* ]]; then
-    ln -sf "$backup_path" "$symlink_path"
+    ln -sf "$backup_path" "$ln_full_path"
 fi
+
+ln -sf "$backup_path" "$ln_latest_path"
 
 success "$1" "$backup_path"
 echo 'Backup complete'

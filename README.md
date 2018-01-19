@@ -35,7 +35,7 @@ Setup is done through a number of environment variables:
 | xtrabackup   | [The Percona Xtrabackup binary](https://www.percona.com/software/mysql-database/percona-xtrabackup)                                      |
 | backup       | `xtrabackup` proxy. First argument stands for the backup name (eg. `rancher`), second is the xtrabackup tool parameters (eg. `--backup`) |
 
-## Standalone docker setup
+## Standalone Docker setup
 
 Example setup to backup [Rancher](https://rancher.com/) database periodically.
 

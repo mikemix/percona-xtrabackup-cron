@@ -40,9 +40,9 @@ Setup is done through a number of environment variables:
 Example setup to backup [Rancher](https://rancher.com/) database periodically.
 
     docker run -it --rm -d --restart=unless-stopped --name backup-rancher \
-        # mysql data files
-        -v /var/lib/mysql:/var/lib/mysql:ro \
         # path to mysql physical files (read only for security)
+        -v /var/lib/mysql:/var/lib/mysql:ro \
+        # storage location
         -v /mnt/backup/rancher:/mnt/backup/rancher \
         # backup log (not required)
         -v /var/backup/backup.log:/var/backup.log \
@@ -50,4 +50,5 @@ Example setup to backup [Rancher](https://rancher.com/) database periodically.
         -e CRON='0 1 * * * backup rancher "--compress --compress-threads=4 --backup" > /dev/console 2>&1' \
         -e TZ=Europe/Warsaw \
         -e MYSQL_HOST='172.17.0.1' -e MYSQL_PORT=3306 -e MYSQL_USER=root -e MYSQL_PASS=password \
-        
+
+Make sure your backup location directory name matches your backup name that you set up in cron. This will symlinks created by the tool are usable also on your host machine.

@@ -52,3 +52,12 @@ Example setup to backup [Rancher](https://rancher.com/) database periodically.
         -e MYSQL_HOST='172.17.0.1' -e MYSQL_PORT=3306 -e MYSQL_USER=root -e MYSQL_PASS=password \
 
 Make sure your backup location directory name matches your backup name that you set up in cron. This will symlinks created by the tool are usable also on your host machine.
+
+## Backup log
+
+If a physical file is mounted to the container's `/var/backup.log` location tool will prepend the file
+after a successful backup with a CSV line:
+
+    [unix time];[yyyy-mm-dd hh:mm:ss];[log name];[log size (eg. 32M)];[log path]
+
+We then use this file to generate a [Jekyll based](https://jekyllrb.com/) HTML report.

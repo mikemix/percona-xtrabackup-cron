@@ -4,7 +4,6 @@
 mysql_config="/root/.my.cnf"
 if [ ! -f "$mysql_config" ]; then
     echo '[xtrabackup]' > /root/.my.cnf
-    echo 'target-dir=/backup' >> /root/.my.cnf
     echo "user=$MYSQL_USER" >> /root/.my.cnf
     echo "password=$MYSQL_PASS" >> /root/.my.cnf
     echo "host=$MYSQL_HOST" >> /root/.my.cnf

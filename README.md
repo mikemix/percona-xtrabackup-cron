@@ -6,14 +6,14 @@ Dockerized hot MySQL backup with [Percona Xtrabackup](https://www.percona.com/so
 
 Setup is done through a number of environment variables:
 
-| **Variable name** | **Description**     | **Example**                                                                                     |
-|-------------------|---------------------|-------------------------------------------------------------------------------------------------|
-| CRON              | Cron rules to run   | Do backup at 01:00am each day: `0 1 * * *  backup backup_name "--compress" >/dev/console  2>&1` |
-| TZ                | The time zone       | Europe/Berlin                                                                                   |
-| MYSQL_HOST        | MySQL host name     | 172.17.0.1                                                                                      |
-| MYSQL_PORT        | MySQL port          | 3306                                                                                            |
-| MYSQL_USER        | MySQL user          | root                                                                                            |
-| MYSQL_PASS        | MySQL user password | [your password here]                                                                            |
+| **Variable name** | **Description**     | **Example**                                                                                |
+|-------------------|---------------------|--------------------------------------------------------------------------------------------|
+| CRON              | Cron rules to run   | Do backup at 01:00am each day: `0 1 * * *  backup _name_ "--compress" >/dev/console  2>&1` |
+| TZ                | The time zone       | Europe/Berlin                                                                              |
+| MYSQL_HOST        | MySQL host name     | 172.17.0.1                                                                                 |
+| MYSQL_PORT        | MySQL port          | 3306                                                                                       |
+| MYSQL_USER        | MySQL user          | root                                                                                       |
+| MYSQL_PASS        | MySQL user password | [your password here]                                                                       |
 
 `MYSQL_` variables are used to connect to the database. You can omit these settings and mount a custom `.cnf` file to the
 [`/root/.my.cnf`](https://github.com/mikemix/percona-xtrabackup-cron#example-mycnf-file) inside the container.
@@ -29,10 +29,10 @@ Setup is done through a number of environment variables:
 
 ## Container commands
 
-| **Command**  | **Description**                                                                                                                                  |
-|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| xtrabackup   | [The Percona Xtrabackup binary](https://www.percona.com/software/mysql-database/percona-xtrabackup)                                              |
-| backup       | `xtrabackup` proxy. First argument stands for the backup name (eg. `rancher`), second is the xtrabackup additional parameters (eg. `--compress`) |
+| **Command**  | **Description**                                                                                                                               |
+|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| xtrabackup   | [The Percona Xtrabackup binary](https://www.percona.com/software/mysql-database/percona-xtrabackup)                                           |
+| backup       | `xtrabackup` proxy. First argument stands for the backup name (eg. `rancher`), second are xtrabackup additional parameters (eg. `--compress`) |
 
 ## Standalone Docker setup
 
@@ -51,7 +51,9 @@ Example setup to backup [Rancher](https://rancher.com/) database periodically.
         -e MYSQL_HOST='172.17.0.1' -e MYSQL_PORT=3306 -e MYSQL_USER=root -e MYSQL_PASS=password \
 
 Make sure the backup location directory name matches your backup name that you set up in the cron rule. 
-This will ensure symlinks created in the container are also usable on your host machine.
+This will ensure symlinks created in the container are also usable on your host machine. In this case
+backup name `rancher` matches the `rancher` directory inside `/mnt/backup` as all backups are stored
+in the `/mnt/backup` inside the container.
 
 The `--backup --target-dir=/path` arguments are added automatically.
 

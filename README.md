@@ -46,9 +46,9 @@ Example setup to backup [Rancher](https://rancher.com/) database periodically.
         # backup log (not required)
         -v /var/backup/backup.log:/var/backup.log \
 
-        -e CRON='0 1 * * * backup rancher "--compress --compress-threads=4" > /dev/console 2>&1' \
+        -e CRON='0 1 * * * backup rancher "--compress --compress-threads=4" >/dev/console 2>&1' \
         -e TZ=Europe/Warsaw \
-        -e MYSQL_HOST='172.17.0.1' -e MYSQL_PORT=3306 -e MYSQL_USER=root -e MYSQL_PASS=password \
+        -e MYSQL_HOST='172.17.0.1' -e MYSQL_PORT=3306 -e MYSQL_USER=root -e MYSQL_PASS=password
 
 Make sure the backup location directory name matches your backup name that you set up in the cron rule. 
 This will ensure symlinks created in the container are also usable on your host machine. In this case

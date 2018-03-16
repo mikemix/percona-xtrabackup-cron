@@ -30,10 +30,14 @@ echo "Backup start in: $backup_path"
 `xtrabackup --target-dir=$backup_path --backup $2`
 
 if [[ "$2" != *"incremental-basedir"* ]]; then
-    ln -sf "$backup_path" "/mnt/backup/$1/latest-full"
+    ln_backup_path="/mnt/backup/$1/latest-full"
+    rm -f "$ln_backup_path" || true
+    ln -s "$backup_path" "$ln_backup_path"
 fi
 
-ln -sf "$backup_path" "/mnt/backup/$1/latest"
+ln_backup_path="/mnt/backup/$1/latest"
+rm -f "$ln_backup_path" || true
+ln -s "$backup_path" "$ln_backup_path"
 
 success "$1" "$backup_path"
 echo 'Backup complete'

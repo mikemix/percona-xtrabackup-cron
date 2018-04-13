@@ -66,3 +66,31 @@ after a successful backup with a CSV line:
 
 We then use this file to generate a [Jekyll based](https://jekyllrb.com/) HTML report.
 
+## Generated backup tree example
+
+```
+[root@host /mnt/backup/rancher]$ ls -l
+total 4
+drwxr-xr-x. 4 root root 4096 04-02 01:30 2018
+lrwxrwxrwx. 1 root root   41 04-13 01:30 latest -> /mnt/backup/rancher/2018/04/12/1523575621
+lrwxrwxrwx. 1 root root   41 04-13 01:30 latest-full -> /mnt/backup/rancher/2018/04/12/1523575621
+
+   |-2018
+   |---04
+   |-----05
+   |-------1522970821
+   |-----06
+   |-------1523057221
+   |-----07
+   |-------1523143621
+   |-----08
+   |-------1523230021
+   |-----09
+   |-------1523316421
+   |-----10
+   |-------1523402821
+   |-----11
+   |-------1523489221
+   |-----12
+   |-------1523575621
+```
